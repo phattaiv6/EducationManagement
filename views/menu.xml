@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <menuitem id="menu_management_student_root"
+              name="QUẢN LÝ HỌC SINH"
+              sequence="0"/>
+
+    <menuitem id="menu_management_student_master"
+              name="Thông tin học sinh"
+              parent="menu_management_student_root"
+              sequence="0"/>
+
+    <menuitem id="menu_management_class_master"
+              name="Thông tin lớp học"
+              parent="menu_management_student_root"
+              sequence="20"/>
+    <menuitem id="menu_management_course"
+              name="Thông tin khóa học"
+              parent="menu_management_student_root"
+              sequence="25"/>
+<!--    <menuitem id="menu_parent"-->
+<!--              name="Quản lý phụ huynh"-->
+<!--              action="contacts.action_contacts"-->
+<!--              parent="menu_management_student_master"-->
+<!--              sequence="2"-->
+<!--    />-->
+
+
+
+</odoo>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="seq_student" model="ir.sequence">
+        <field name="name">Student ids</field>
+        <field name="code">student</field>
+        <field name="prefix">HS</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+    <record id="seq_parent" model="ir.sequence">
+        <field name="name">Parent ids</field>
+        <field name="code">parent</field>
+        <field name="prefix">PH</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+    <record id="seq_class" model="ir.sequence">
+        <field name="name">Class ids</field>
+        <field name="code">class.student</field>
+        <field name="prefix">L</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+      <record id="seq_teacher" model="ir.sequence">
+        <field name="name">Teacher ids</field>
+        <field name="code">teacher.education</field>
+        <field name="prefix">GV</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+      <record id="seq_fee" model="ir.sequence">
+        <field name="name">Fee ids</field>
+        <field name="code">student.fee</field>
+        <field name="prefix">HP</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+     <record id="seq_marksheet" model="ir.sequence">
+        <field name="name">marksheet ids</field>
+        <field name="code">marksheet</field>
+        <field name="prefix">D</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+         <record id="seq_course" model="ir.sequence">
+        <field name="name">course ids</field>
+        <field name="code">course</field>
+        <field name="prefix">C</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+</odoo>

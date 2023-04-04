@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="class_form_view" model="ir.ui.view">
+            <field name="name">class.form.view</field>
+            <field name="model">class.student</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="class_ids"/>
+                                <field name="start_date"/>
+                                <field name="end_date"/>
+                                <field name="active"/>
+                            </group>
+                            <group>
+                                <field name="teacher_ids"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="write_date" string="Thời gian cập nhật"/>
+                            <field name="create_date" string="thời gian tạo"/>
+                        </group>
+<notebook>
+                            <page name="student_ids" string="Thành viên lớp học">
+								<group>
+									<group>
+										<field name="student_ids" />
+									</group>
+								</group>
+							</page>
+						</notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="parent_tree_view" model="ir.ui.view">
+            <field name="name">class.tree.view</field>
+            <field name="model">class.student</field>
+            <field name="arch" type="xml">
+                <tree string="Class" default_order="create_date desc">
+                    <field name="name"/>
+                    <field name="class_ids"/>
+                    <field name="active"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="parent_search_view" model="ir.ui.view">
+            <field name="name">Class</field>
+            <field name="model">class.student</field>
+            <field name="arch" type="xml">
+                <search string="Student">
+                    <field name="name"/>
+                    <field name="class_ids"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                </search>
+            </field>
+        </record>
+        <record id="action_class" model="ir.actions.act_window">
+            <field name="name">Lớp học</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">class.student</field>
+
+        </record>
+    <menuitem id="menu_class"
+              name="Quản lý lớp học"
+              action="action_class"
+              parent="menu_management_class_master"
+              sequence="1"
+    />
+    </data>
+</odoo>

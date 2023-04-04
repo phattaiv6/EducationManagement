@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="fee_form_view" model="ir.ui.view">
+            <field name="name">fee.form.view</field>
+            <field name="model">student.fee</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="fee_ids"/>
+                                <field name="student_ids"/>
+                                <field name="date"/>
+                                <field name="currency_id"/>
+                                <field name="amount_paid"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="write_date" string="Thời gian cập nhật"/>
+                            <field name="create_date" string="thời gian tạo"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="fee_tree_view" model="ir.ui.view">
+            <field name="name">fee.tree.view</field>
+            <field name="model">student.fee</field>
+            <field name="arch" type="xml">
+                <tree string="Fee" default_order="create_date desc">
+                    <field name="fee_ids"/>
+                    <field name="date"/>
+                    <field name="amount_paid"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="fee_search_view" model="ir.ui.view">
+            <field name="name">Fee</field>
+            <field name="model">student.fee</field>
+            <field name="arch" type="xml">
+                <search string="Fee">
+                    <field name="fee_ids"/>
+                    <field name="date"/>
+                    <field name="amount_paid"/>
+                </search>
+            </field>
+        </record>
+        <record id="action_fee" model="ir.actions.act_window">
+            <field name="name">Fee</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">student.fee</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('fee_tree_view')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('fee_form_view')})]"/>
+        </record>
+  <menuitem id="menu_fee"
+              name="Học phí"
+              action="action_fee"
+              parent="menu_management_class_master"
+              sequence="3"
+    />
+    </data>
+</odoo>

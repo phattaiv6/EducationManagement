@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="student_form_view" model="ir.ui.view">
+            <field name="name">student.form.view</field>
+            <field name="model">student</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="change_to_new" type="object" string="New"/>
+                        <button name="change_to_studying" type="object" string="Studying"/>
+                        <button name="change_to_off" type="object" string="Off"/>
+                        <field name="state" widget="statusbar" options="{'clickable': 1, 'fold_field': 'fold'}"/>/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" string="Tên" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name" placeholder=""/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="student_ids"/>
+                                <field name="gender"/>
+                                <field name="dob"/>
+                                <field name="age"/>
+                                <field name="parent_ids"/>
+<!--                                <field name="class_ids"/>-->
+                                <field name="state"/>
+                                <field name="active"/>
+                            </group>
+                            <group>
+                                <field name="description"/>
+                            </group>
+                            <group>
+                                <field name="student_image" widget="image"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="write_date" string="Thời gian cập nhật"/>
+                            <field name="create_date" string="thời gian tạo"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="student_tree_view" model="ir.ui.view">
+            <field name="name">student.tree.view</field>
+            <field name="model">student</field>
+            <field name="arch" type="xml">
+                <tree string="Students" default_order="create_date desc">
+                    <field name="name"/>
+                    <field name="student_ids"/>
+                    <field name="age"/>
+                    <field name="dob"/>
+                    <field name="gender"/>
+
+
+                </tree>
+            </field>
+        </record>
+
+        <record id="student_search_view" model="ir.ui.view">
+            <field name="name">Student</field>
+            <field name="model">student</field>
+            <field name="arch" type="xml">
+                <search string="Student">
+                    <field name="name"/>
+                    <field name="age"/>
+                    <field name="parent_ids"/>
+                    <field name="student_ids"/>
+                </search>
+            </field>
+        </record>
+        <record id="action_student" model="ir.actions.act_window">
+            <field name="name">Student</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">student</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('student_tree_view')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('student_form_view')})]"/>
+        </record>
+    <menuitem id="menu_student"
+              name="Quản lý học sinh"
+              action="action_student"
+              parent="menu_management_student_master"
+              sequence="1"
+    />
+    </data>
+</odoo>

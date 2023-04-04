@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="teacher_form_view" model="ir.ui.view">
+            <field name="name">teacher.form.view</field>
+            <field name="model">teacher.education</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" string="Tên" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name" placeholder=""/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="teacher_ids"/>
+                                <field name="class_ids"/>
+                                <field name="phone"/>
+                                <field name="gender"/>
+                                <field name="age"/>
+                                <field name="address"/>
+                                <field name="email"/>
+                                <field name="active"/>
+
+                            </group>
+                        </group>
+                        <group>
+                            <field name="write_date" string="Thời gian cập nhật"/>
+                            <field name="create_date" string="thời gian tạo"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="teacher_tree_view" model="ir.ui.view">
+            <field name="name">teacher.tree.view</field>
+            <field name="model">teacher.education</field>
+            <field name="arch" type="xml">
+                <tree string="Teacher" default_order="create_date desc">
+                    <field name="name"/>
+                    <field name="teacher_ids"/>
+                    <field name="gender"/>
+                    <field name="phone"/>
+                    <field name="email"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="teacher_search_view" model="ir.ui.view">
+            <field name="name">Teacher</field>
+            <field name="model">teacher.education</field>
+            <field name="arch" type="xml">
+                <search string="Teacher">
+                    <field name="name"/>
+                    <field name="age"/>
+                    <field name="phone"/>
+                    <field name="teacher_ids"/>
+
+                </search>
+            </field>
+        </record>
+        <record id="action_teacher" model="ir.actions.act_window">
+            <field name="name">Teacher</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">teacher.education</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('teacher_tree_view')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('teacher_form_view')})]"/>
+        </record>
+  <menuitem id="menu_teacher"
+              name="Quản lý giáo viên"
+              action="action_teacher"
+              parent="menu_management_class_master"
+              sequence="2"
+    />
+    </data>
+</odoo>

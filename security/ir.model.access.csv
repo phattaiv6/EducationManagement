@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+ace_user_student,student user,model_student,,1,0,0,0
+ace_admin_student,student admin,model_student,group_admin,1,1,1,1
+ace_admin_parent,parent admin,model_parent,group_admin,1,1,1,1
+ace_admin_class,class_student admin,model_class_student,group_admin,1,1,1,1
+ace_admin_course,course_student admin,model_course_student,group_admin,1,1,1,1
+ace_admin_marksheet,marksheet_student admin,model_marksheet_student,group_admin,1,1,1,1
+ace_admin_student_fee,student_fee admin,model_student_fee,group_admin,1,1,1,1
+ace_admin_teacher_education,teacher_education admin,model_teacher_education,group_admin,1,1,1,1

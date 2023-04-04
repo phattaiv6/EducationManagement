@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="course_form_view" model="ir.ui.view">
+            <field name="name">course.form.view</field>
+            <field name="model">course.student</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name_course" string="Tên" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name_course" placeholder=""/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="course_ids"/>
+                                <field name="start_date"/>
+                                <field name="end_date"/>
+                                <field name="active"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="write_date" string="Thời gian cập nhật"/>
+                            <field name="create_date" string="thời gian tạo"/>
+                        </group>
+                        <notebook>
+                            <page name="marksheet_id" string="">
+								<group>
+									<group>
+										<field name="marksheet_id" />
+									</group>
+								</group>
+							</page>
+						</notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="course_tree_view" model="ir.ui.view">
+            <field name="name">course.tree.view</field>
+            <field name="model">course.student</field>
+            <field name="arch" type="xml">
+                <tree string="Course" default_order="create_date desc">
+                    <field name="name_course"/>
+                    <field name="course_ids"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="course_search_view" model="ir.ui.view">
+            <field name="name">Course</field>
+            <field name="model">course.student</field>
+            <field name="arch" type="xml">
+                <search string="Course">
+                    <field name="name_course"/>
+                    <field name="display_name"/>
+                    <field name="course_ids"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                </search>
+            </field>
+        </record>
+        <record id="action_course" model="ir.actions.act_window">
+            <field name="name">Course</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">course.student</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('course_tree_view')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('course_form_view')})]"/>
+        </record>
+    <menuitem id="menu_course"
+              name="Quản lý khóa học"
+              action="action_course"
+              parent="menu_management_course"
+              sequence="1"
+    />
+    </data>
+</odoo>

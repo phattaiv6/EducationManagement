@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="marksheet_form_view" model="ir.ui.view">
+            <field name="name">marksheet.form.view</field>
+            <field name="model">marksheet.student</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name_marksheet" string="Tên bảng điểm" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name_marksheet" placeholder=""/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="marksheet_id"/>
+<!--                                <field name="course_ids"/>-->
+                                <field name="student_ids"/>
+                                <field name="score_15"/>
+                                <field name="score_45"/>
+                                <field name="score_end"/>
+                                <field name="Total_score"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="write_date" string="Thời gian cập nhật"/>
+                            <field name="create_date" string="thời gian tạo"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="marksheet_tree_view" model="ir.ui.view">
+            <field name="name">marksheet.tree.view</field>
+            <field name="model">marksheet.student</field>
+            <field name="arch" type="xml">
+                <tree string="marksheet" default_order="create_date desc">
+                    <field name="marksheet_id"/>
+                    <field name="student_ids"/>
+                    <field name="Total_score"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="marksheet_search_view" model="ir.ui.view">
+            <field name="name">Marksheet</field>
+            <field name="model">marksheet.student</field>
+            <field name="arch" type="xml">
+                <search string="masksheet_id">
+                    <field name="student_ids"/>
+                    <field name="Total_score"/>
+                </search>
+            </field>
+        </record>
+        <record id="action_marksheet" model="ir.actions.act_window">
+            <field name="name">Bảng điểm</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">marksheet.student</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('marksheet_tree_view')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('marksheet_form_view')})]"/>
+        </record>
+  <menuitem id="menu_marksheet"
+              name="Điểm số"
+              action="action_marksheet"
+              parent="menu_management_class_master"
+              sequence="4"
+    />
+    </data>
+</odoo>
