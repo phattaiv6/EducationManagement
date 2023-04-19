@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_student_batch_update" model="ir.ui.view">
+        <field name="name">view.student.batch.update</field>
+        <field name="model">wizard.student</field>
+        <field name="arch" type="xml">
+            <form string="Batch Update">
+                <group>
+                    <group>
+                        <field name="state"/>
+                        <field name="description"/>
+                    </group>
+                    <group/>
+                </group>
+                <p>
+                   Thực hiện update thông tin?
+                </p>
+                <footer>
+                    <button string="Confirm" name="multi_update" type="object" default_focus="1" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_student_batch_update" model="ir.actions.act_window">
+        <field name="name">Thôi học</field>
+        <field name="res_model">wizard.student</field>
+        <field name="binding_model_id" ref="model_student"/>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="view_student_batch_update"/>
+    </record>
+</odoo>

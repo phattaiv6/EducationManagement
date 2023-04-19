@@ -14,13 +14,16 @@
         'security/ir.model.access.csv',
         'data/sequence_data.xml',
         'views/menu.xml',
+
         'views/student_views.xml',
         'views/parent_views.xml',
         'views/class_education.xml',
         'views/teacher_views.xml',
         'views/fee_views.xml',
         'views/marksheet_views.xml',
-         'views/course_views.xml'
+        'views/course_views.xml',
+        'wizard/batch_update.xml'
+
 
 
     ],

@@ -7,3 +7,4 @@ ace_admin_course,course_student admin,model_course_student,group_admin,1,1,1,1
 ace_admin_marksheet,marksheet_student admin,model_marksheet_student,group_admin,1,1,1,1
 ace_admin_student_fee,student_fee admin,model_student_fee,group_admin,1,1,1,1
 ace_admin_teacher_education,teacher_education admin,model_teacher_education,group_admin,1,1,1,1
+acc_active_student_dropout_wizard,active_student_dropout_wizard,model_wizard_student,group_admin,1,1,1,1
