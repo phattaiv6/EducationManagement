@@ -1,0 +1,23 @@
+<odoo noupdate="1">
+    <record id="stage_new" model="student.stage">
+        <field name="name">New</field>
+        <field name="sequence">1</field>
+        <field name="stage">new</field>
+    </record>
+    <record id="stage_studying" model="student.stage">
+        <field name="name">Studying</field>
+        <field name="sequence">3</field>
+        <field name="stage">studying</field>
+    </record>
+    <record id="stage_off" model="student.stage">
+        <field name="name">Off</field>
+        <field name="sequence">5</field>
+        <field name="stage">off</field>
+    </record>
+    <record id="stage_expelled" model="student.stage">
+        <field name="name">Expelled</field>
+        <field name="sequence">7</field>
+        <field name="fold" eval="True"/>
+        <field name="stage">off</field>
+    </record>
+</odoo>
