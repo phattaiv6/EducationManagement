@@ -7,11 +7,12 @@ from odoo import _
 
 
 class Student(models.Model):
+    #thông tin học sinh
     _name = "student"
     _description = "quản lý học sinh"
     name = fields.Char("Họ và tên")
     dob = fields.Date('Ngày sinh')
-    student_image = fields.Binary("Ảnh", attachment=True)
+    student_image = fields.Image(string="Ảnh")
     gender = fields.Selection([
         ('nam', 'Nam'),
         ('nữ', 'Nữ')
@@ -19,25 +20,39 @@ class Student(models.Model):
     description = fields.Text('Ghi chú')
     age = fields.Integer(string='Tuổi', compute='_compute_age', inverse='_inverse_age',
                          store=False, compute_sodu=True)
-    student_ids = fields.Char(string='Mã học sinh', readonly=True, default=0)
-    state = fields.Selection(string='Trạng thái', selection=[('new', 'New'), ('studying', 'Studying'), ('off', 'Off'),
-                                                             ], default='new',readonly=True)
+    reference = fields.Char(string='Mã học sinh', readonly=True, default=0)
     active = fields.Boolean(default=True)
+    class_ids = fields.Many2many(
+        comodel_name='class.student',
+        string='Lớp học',
+        relation='student_class_rel',
+        column1='student_ids',
+        column2='class_ids'
+    )
+    marksheet_id = fields.One2many('marksheet.student', 'student_ids', string='Bảng điểm')
+    course_ids = fields.One2many('course.student', 'student_ids', string='Khóa học')
+    fee_ids = fields.One2many('student.fee', 'student_ids', string='Học Phí')
+    state = fields.Selection(string='Trạng thái', selection=[('new', 'New'), ('studying', 'Studying'), ('off', 'Off'),
+                                                             ], default='new')
+    #thông tin phụ huynh
+    parent_name = fields.Char(string="Họ và tên phụ huynh")
+    gender_parent = fields.Char( string='Quan hệ với học sinh')
+    text = fields.Text("Ghi chú")
+    phone = fields.Char(string='Số điện thoại', required=True, size=10)
+    fee_count = fields.Integer(string="Số lượng học phí", compute='_get_fee_count',store=True)
+    @api.depends('fee_ids')
+    def _get_fee_count(self):
+        for record in self:
+            record.fee_count = len(record.fee_ids)
 
-    parent_ids = fields.Many2one('parent', string='Phụ huynh')
-    # class_ids = fields.Many2many(
-    #     comodel_name='class.student',
-    #     string='Lớp học',
-    #     relation='student_class_rel',
-    #     column1='student_ids',
-    #     column2='class_ids')
-    marksheet_id = fields.One2many('marksheet.student', 'student_ids', string='bảng điểm')
-
+    _sql_constraints = [
+        ('phone_unique', 'unique(phone)', "The phone code must be unique!"),
+    ]
     @api.model
     def create(self, vals):
-        if vals.get('student_ids', 0) == 0:  # kiểm tra ids ,nếu không tồn tại thì ids = 0
+        if vals.get('reference', 0) == 0:  # kiểm tra ids ,nếu không tồn tại thì ids = 0
             # thực hiện sequence đã setting
-            vals['student_ids'] = self.env['ir.sequence'].next_by_code('student') or 0
+            vals['reference'] = self.env['ir.sequence'].next_by_code('student') or 0
         result = super(Student, self).create(vals)  # gọi create ở lớp cha và gán = result
         return result  # trả về
 
@@ -86,3 +101,4 @@ class Student(models.Model):
 
     def change_to_off(self):
         self.change_student_state('off')
+    

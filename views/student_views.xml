@@ -10,37 +10,64 @@
                         <button name="change_to_new" type="object" string="New"/>
                         <button name="change_to_studying" type="object" string="Studying"/>
                         <button name="change_to_off" type="object" string="Off"/>
-                        <field name="state" widget="statusbar" options="{'clickable': 1, 'fold_field': 'fold'}"/>
+                        <field name="state" widget="statusbar"/>
                     </header>
                     <sheet>
-                        <div class="oe_title">
-                            <label for="name" string="Tên" class="oe_edit_only"/>
-                            <h1>
-                                <field name="name" placeholder=""/>
-                            </h1>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="%(action_count_fee)d"
+                                    class="oe_stat_button"
+                                    icon="fa-list"
+                                    type="action">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value">
+                                        <field name="fee_count" nolabel="1"/>
+                                    </span>
+                                    <span class="o_stat_text">Học phí</span>
+                                </div>
+                            </button>
                         </div>
+                        <field name="student_image" widget="image" class="oe_avatar"/>
                         <group>
                             <group>
-                                <field name="student_ids"/>
+                                <field name="reference" placeholder=" "/>
+                                <field name="name" placeholder=" "/>
                                 <field name="gender"/>
                                 <field name="dob"/>
                                 <field name="age"/>
-                                <field name="parent_ids"/>
-
-                                <field name="state"/>
                                 <field name="active"/>
                             </group>
-                            <group>
-                                <field name="description"/>
-                            </group>
-                            <group>
-                                <field name="student_image" widget="image"/>
-                            </group>
+
+
                         </group>
                         <group>
                             <field name="write_date" string="Thời gian cập nhật"/>
                             <field name="create_date" string="thời gian tạo"/>
                         </group>
+                        <notebook>
+                            <page string="Ghi chú">
+                                <field name="description"/>
+                            </page>
+                            <page name="Parent_ids" string="Phụ huynh">
+                                <group>
+                                    <field name="parent_name"/>
+                                    <field name="gender_parent"/>
+                                    <field name="phone"/>
+                                    <field name="text"/>
+                                </group>
+                            </page>
+                            <page name="class_ids" string="Lớp học">
+                                <field name="class_ids"/>
+                            </page>
+                            <page name="marksheet_id" string="Bảng điểm">
+                                <field name="marksheet_id"/>
+                            </page>
+                            <page name="course_ids" string="Khóa học">
+                                <field name="course_ids"/>
+                            </page>
+                            <page name="fee_ids" string="Học phí">
+                                <field name="fee_ids"/>
+                            </page>
+                        </notebook>
                     </sheet>
                 </form>
             </field>
@@ -50,19 +77,51 @@
             <field name="name">student.tree.view</field>
             <field name="model">student</field>
             <field name="arch" type="xml">
-                <tree string="Students" default_order="create_date desc">
+                <tree string="Students">
+
+                    <field name="reference"/>
                     <field name="name"/>
-                    <field name="student_ids"/>
-                    <field name="state"/>
+
                     <field name="age"/>
                     <field name="dob"/>
                     <field name="gender"/>
-
-
                 </tree>
             </field>
         </record>
-
+        <record id="student_view_kanban" model="ir.ui.view">
+            <field name="name">student.kanban.view</field>
+            <field name="model">student</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="id"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click o_kanban_record_has_image_fill o_res_partner_kanban">
+                                <div class="o_kanban_image">
+                                    <img t-att-src="kanban_image('student', 'student_image', record.id.raw_value)"
+                                         alt="Student" class="o_image_64_contain"/>
+                                </div>
+                                <div class="oe_kanban_details">
+                                    <strong class="o_kanban_record_title oe_partner_heading">
+                                        <field name="name"/>
+                                    </strong>
+                                    <div class="o_kanban_tags_section oe_kanban_partner_categories"/>
+                                    <ul>
+                                        <li>
+                                            <field name="reference"/>
+                                        </li>
+                                        <li>
+                                            <field name="gender"/>
+                                        </li>
+                                    </ul>
+                                    <div class="oe_kanban_partner_links"/>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
         <record id="student_search_view" model="ir.ui.view">
             <field name="name">Student</field>
             <field name="model">student</field>
@@ -70,8 +129,7 @@
                 <search string="Student">
                     <field name="name"/>
                     <field name="age"/>
-                    <field name="parent_ids"/>
-                    <field name="student_ids"/>
+                    <field name="reference"/>
                 </search>
             </field>
         </record>
@@ -81,13 +139,14 @@
             <field name="res_model">student</field>
             <field name="view_ids" eval="[(5, 0, 0),
                 (0, 0, {'view_mode': 'tree', 'view_id': ref('student_tree_view')}),
-                (0, 0, {'view_mode': 'form', 'view_id': ref('student_form_view')})]"/>
+                (0, 0, {'view_mode': 'form', 'view_id': ref('student_form_view')}),
+                (0, 0, {'view_mode': 'kanban', 'view_id': ref('student_view_kanban')})]"/>
         </record>
-    <menuitem id="menu_student"
-              name="Quản lý học sinh"
-              action="action_student"
-              parent="menu_management_student_master"
-              sequence="1"
-    />
+        <menuitem id="menu_student"
+                  name="Quản lý học sinh"
+                  action="action_student"
+                  parent="menu_management_student_master"
+                  sequence="1"
+        />
     </data>
 </odoo>
